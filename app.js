@@ -6,10 +6,12 @@ const dbConnect = require('./config/mongo')
 
 //Instanciamos la app con express
 const app = express()
+const routers = require('./routes')
 
 //Aplicamos middleware
 app.use(express.json())
 app.use(cors())
+app.use('/api', routers)
 
 const port = process.env.PORT
 
