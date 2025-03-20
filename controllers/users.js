@@ -1,12 +1,11 @@
 const UserModel = require('../models/users')
 const {matchedData} = require('express-validator')
-const {encrypt} = require('../utils/handlePassword')
+const {encrypt, compare} = require('../utils/handlePassword')
 const {tokenSign} = require('../utils/handleTokenJWT')
 
 const createItem = async (req, res) => {
     try{
         const data = matchedData(req)
-        console.log(data)
         //Encriptamos la constraseña
         const password = await encrypt(data.password)
 
@@ -28,4 +27,32 @@ const createItem = async (req, res) => {
     }
 }
 
-module.exports = {createItem}
+const userLogin = async (req, res) => {
+    try{
+        const data = matchedData(req)
+        console.log(data.email)
+        const user = await UserModel.findOne({email: data.email})
+        if(!user){
+            res.status(400).send('ERROR_USER_DONT_EXISTS')
+            return
+        }
+        const check = await compare(data.password, user.password)
+        if(!check){
+            res.status(400).send('ERROR_INVALID_PASSWORD')
+            return
+        }
+
+        const userData = {
+            token: await  tokenSign(user),
+            user: user
+        }
+
+        res.json(userData)
+
+    }catch(err){
+        console.log(err)
+        res.status(403).send('ERROR_LOGIN_USER')
+    }
+}
+
+module.exports = {createItem, userLogin}

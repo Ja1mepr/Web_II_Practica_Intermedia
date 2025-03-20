@@ -7,4 +7,10 @@ const validatorCreateItem = [
     (req, res, next) => {return validateResults(req, res, next)}
 ]
 
-module.exports = {validatorCreateItem}
+const validatorLogin = [
+    check('email').exists().notEmpty().isEmail(),
+    check('password').exists().notEmpty(),
+    (req, res, next) => {return validateResults(req, res, next)}
+]
+
+module.exports = {validatorCreateItem, validatorLogin}
