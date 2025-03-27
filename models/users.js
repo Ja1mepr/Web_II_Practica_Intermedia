@@ -10,6 +10,20 @@ const UserSchema = new mongoose.Schema(
         },
         password: {
             type: String // Falta guardar el hash
+        },
+        code: {
+            type: String,
+            required: false
+        },
+        role: {
+            type: String,
+            enum: ["user", "admin", "guest"],
+            default: "user"
+        },
+        status: {
+            type: String,
+            enum: ["pending", "validated"],
+            default: "pending"
         }
     },
     {

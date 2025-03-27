@@ -4,8 +4,8 @@ POST http://localhost:3005/api/users/register
 Content-Type: application/json
 
 {
-    "name": "Diego",
-    "email": "io6@gmail.com",
+    "name": "Jaime",
+    "email": "j368@gmail.com",
     "password": "jaime123"
 }
 
@@ -14,6 +14,17 @@ POST http://localhost:3005/api/users/login
 Content-Type: application/json
 
 {
-    "email": "io6@gmail.com",
+    "email": "j368@gmail.com",
     "password": "jaime123"
 }
+
+###
+PATCH http://localhost:3005/api/storage/logo
+Content-Type: multipart/form-data; boundary=boundary123
+
+--boundary123
+Content-Disposition: form-data; name="image"; filename="LegoLogo.jpg"
+Content-Type: image/jpeg
+
+< ./logo.jpg
+--boundary123--
