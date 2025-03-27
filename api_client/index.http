@@ -5,8 +5,19 @@ Content-Type: application/json
 
 {
     "name": "Jaime",
-    "email": "j368@gmail.com",
+    "email": "edupr@gmail.com",
     "password": "jaime123"
+}
+
+###
+PUT http://localhost:3005/api/users/validation
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2U1NDIyZTg1YjQxMWEzNzlkNWI2YmMiLCJpYXQiOjE3NDMwNzc5MzQsImV4cCI6MTc0MzA4NTEzNH0.rp_DnQYQCpShoYwUevkZWQhV8GN_g0dw0bi5OiKuBy8",
+    "email": "edupr@gmail.com",
+    "password": "jaime123",
+    "code": 755245
 }
 
 ###
@@ -14,7 +25,7 @@ POST http://localhost:3005/api/users/login
 Content-Type: application/json
 
 {
-    "email": "j368@gmail.com",
+    "email": "drdr@gmail.com",
     "password": "jaime123"
 }
 
@@ -26,5 +37,5 @@ Content-Type: multipart/form-data; boundary=boundary123
 Content-Disposition: form-data; name="image"; filename="LegoLogo.jpg"
 Content-Type: image/jpeg
 
-< ./logo.jpg
+< ./LegoLogo.jpg
 --boundary123--

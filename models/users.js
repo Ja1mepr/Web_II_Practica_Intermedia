@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema(
             unique: true
         },
         password: {
-            type: String // Falta guardar el hash
+            type: String
         },
         code: {
             type: String,

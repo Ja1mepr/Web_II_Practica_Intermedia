@@ -2,15 +2,16 @@ const UserModel = require('../models/users')
 const {matchedData} = require('express-validator')
 const {encrypt, compare} = require('../utils/handlePassword')
 const {tokenSign} = require('../utils/handleTokenJWT')
+const crypto = require('crypto')
 
 const createItem = async (req, res) => {
     try{
         const data = matchedData(req)
         //Encriptamos la constraseña
         const password = await encrypt(data.password)
-
+        const code = crypto.randomInt(100000, 999999).toString()
         //Creamos un nuevo objeto modificando la contraseña por la encriptada
-        const body = {...data, password} //Si password no es un campo del objeto lo añade,  si no lo sobreescribe
+        const body = {...data, password, code} //Si password no es un campo del objeto lo añade,  si no lo sobreescribe
         const user = await UserModel.create(body)
         //Oculta la contraseña en la respuesta
         user.set('password', undefined, {strict: false})
@@ -19,9 +20,34 @@ const createItem = async (req, res) => {
             token: await tokenSign(user),
             user: user
         }
-        
-        console.log('Recurso creado')
+        console.log('Recurso creado\nCode:'+code)
         res.status(201).json(userData)
+    }catch(err){
+        console.log(err)
+        res.status(403).json(err)
+    }
+}
+
+const validateUser = async (req, res) => {
+    try{
+        const data = matchedData(req)
+        const user = await UserModel.findOne({email: data.email})
+        if(user.token!=data.token){
+            res.status(400).send('ERROR_INVALID_TOKEN')
+            return
+        }if(!user){
+            res.status(400).send('ERROR_USER_DONT_EXISTS')
+            return
+        }
+        if(data.code!=user.code){
+            res.status(400).send('ERROR_INVALID_CODE')
+            return
+        }
+        console.log(data.code+"---"+user.code)
+        // Actualizamos el campo estatus para validarlo
+        await UserModel.findOneAndUpdate({email: data.email}, {status: 'validated'})
+        
+        res.json({message: "ACK"})
     }catch(err){
         console.log(err)
         res.status(403).json(err)
@@ -31,7 +57,6 @@ const createItem = async (req, res) => {
 const userLogin = async (req, res) => {
     try{
         const data = matchedData(req)
-        console.log(data.email)
         const user = await UserModel.findOne({email: data.email})
         if(!user){
             res.status(400).send('ERROR_USER_DONT_EXISTS')
@@ -42,7 +67,6 @@ const userLogin = async (req, res) => {
             res.status(400).send('ERROR_INVALID_PASSWORD')
             return
         }
-
         //Oculta la contraseña en la respuesta
         user.set('password', undefined, {strict: false})
 
@@ -58,14 +82,5 @@ const userLogin = async (req, res) => {
         res.status(403).send('ERROR_LOGIN_USER')
     }
 }
-/*
-const userValidation = async (req, res) => {
-    try{
 
-    }catch(err){
-        console.log(err)
-        res.status(403).send('ERROR_VALIDATING_USER')
-    }
-}
-*/
-module.exports = {createItem, userLogin}
+module.exports = {createItem, userLogin, validateUser}
