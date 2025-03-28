@@ -3,6 +3,7 @@ const {matchedData} = require('express-validator')
 const {encrypt, compare} = require('../utils/handlePassword')
 const {tokenSign} = require('../utils/handleTokenJWT')
 const crypto = require('crypto')
+const {authMiddleware} = require('../middleware/session')
 
 const createItem = async (req, res) => {
     try{
@@ -12,7 +13,7 @@ const createItem = async (req, res) => {
         const code = crypto.randomInt(100000, 999999).toString()
         //Creamos un nuevo objeto modificando la contraseña por la encriptada
         const body = {...data, password, code} //Si password no es un campo del objeto lo añade,  si no lo sobreescribe
-        const user = await UserModel.create(body)
+        const user = await UserModel.create(body) 
         //Oculta la contraseña en la respuesta
         user.set('password', undefined, {strict: false})
         //Añadimos el token firmado al objeto
@@ -32,10 +33,7 @@ const validateUser = async (req, res) => {
     try{
         const data = matchedData(req)
         const user = await UserModel.findOne({email: data.email})
-        if(user.token!=data.token){
-            res.status(400).send('ERROR_INVALID_TOKEN')
-            return
-        }if(!user){
+        if(!user){
             res.status(400).send('ERROR_USER_DONT_EXISTS')
             return
         }
@@ -74,7 +72,7 @@ const userLogin = async (req, res) => {
             token: await  tokenSign(user),
             user: user
         }
-
+        res.set("Authorization", `Bearer ${userData.token}`)
         res.json(userData)
 
     }catch(err){

@@ -14,7 +14,6 @@ const validatorLogin = [
     (req, res, next) => {return validateResults(req, res, next)}
 ]
 const validatorCode = [
-    check('token').exists().notEmpty(),
     check('email').exists().notEmpty().isEmail(),
     check('password').exists().notEmpty(),
     check('code').exists().notEmpty().isLength({min: 6}, {max: 6}),

@@ -5,19 +5,19 @@ Content-Type: application/json
 
 {
     "name": "Jaime",
-    "email": "edupr@gmail.com",
+    "email": "edpr@gmail.com",
     "password": "jaime123"
 }
 
 ###
 PUT http://localhost:3005/api/users/validation
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2U2ZmZhNDcxNWM1MDg1NzIxM2I2ZDciLCJpYXQiOjE3NDMxOTE5OTgsImV4cCI6MTc0MzE5OTE5OH0.WmoNK361uyBRxCBSXNZUZA8jAzlsN_P4aspsYxbmawE
 Content-Type: application/json
 
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2U1NDIyZTg1YjQxMWEzNzlkNWI2YmMiLCJpYXQiOjE3NDMwNzc5MzQsImV4cCI6MTc0MzA4NTEzNH0.rp_DnQYQCpShoYwUevkZWQhV8GN_g0dw0bi5OiKuBy8",
-    "email": "edupr@gmail.com",
+    "email": "edpr@gmail.com",
     "password": "jaime123",
-    "code": 755245
+    "code": 976410
 }
 
 ###
@@ -25,7 +25,7 @@ POST http://localhost:3005/api/users/login
 Content-Type: application/json
 
 {
-    "email": "drdr@gmail.com",
+    "email": "edpr@gmail.com",
     "password": "jaime123"
 }
 

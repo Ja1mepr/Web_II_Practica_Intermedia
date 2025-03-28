@@ -15,4 +15,12 @@ const tokenSign = async (user) => {
     return sign
 }
 
-module.exports = {tokenSign}
+const verifyToken = async (tokenJwt) => {
+    try{
+        return jwt.verify(tokenJwt, jwt_secret)
+    }catch(err){
+        console.log(err)
+    }
+}
+
+module.exports = {tokenSign, verifyToken}
