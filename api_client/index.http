@@ -11,13 +11,13 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:3005/api/users/validation
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2VhODEwNzM1ZGU4MTA0M2MwMGY1OTEiLCJpYXQiOjE3NDM0MjE3MDMsImV4cCI6MTc0MzQyODkwM30.ANSzGfN8KXD4zAcA1zCOaa3-_qJt33_7dMqr52R-C8I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2VhOGQwODA1OGRkYTE2OThlYWRhNjAiLCJpYXQiOjE3NDM0MjQ3NzYsImV4cCI6MTc0MzQzMTk3Nn0.oIJWqPIYg91cSdqTK91Xy6Jsmtw22w-S36q9MvT0YqI
 Content-Type: application/json
 
 {
     "email": "carpr@gmail.com",
     "password": "jaime123",
-    "code": 605327
+    "code": 404635
 }
 
 ###
@@ -27,6 +27,17 @@ Content-Type: application/json
 {
     "email": "edpr@gmail.com",
     "password": "jaime123"
+}
+
+###
+PUT http://localhost:3005/api/users/onBoarding
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2VhOGQwODA1OGRkYTE2OThlYWRhNjAiLCJpYXQiOjE3NDM0MjQ3NzYsImV4cCI6MTc0MzQzMTk3Nn0.oIJWqPIYg91cSdqTK91Xy6Jsmtw22w-S36q9MvT0YqI
+Content-Type: application/json
+
+{
+    "name": "Pedro",
+    "lastName": "Ruiz",
+    "nif": "123456789"
 }
 
 ###
@@ -42,12 +53,11 @@ Content-Type: image/jpeg
 
 ###
 GET http://localhost:3005/api/users/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2VhODg5YmNlMWNmY2M2NzgwMjAwYTciLCJpYXQiOjE3NDM0MjM2NDMsImV4cCI6MTc0MzQzMDg0M30.53ZT7bcyccBxCzQ1NsP8gjvLGT4ICOtoDypMiEYp3Ig
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2VhOGQwODA1OGRkYTE2OThlYWRhNjAiLCJpYXQiOjE3NDM0MjQ3NzYsImV4cCI6MTc0MzQzMTk3Nn0.oIJWqPIYg91cSdqTK91Xy6Jsmtw22w-S36q9MvT0YqI
 
 ###
 DELETE http://localhost:3005/api/users/hardDelete
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2VhODEwNzM1ZGU4MTA0M2MwMGY1OTEiLCJpYXQiOjE3NDM0MjE3MDMsImV4cCI6MTc0MzQyODkwM30.ANSzGfN8KXD4zAcA1zCOaa3-_qJt33_7dMqr52R-C8I
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2VhODg5YmNlMWNmY2M2NzgwMjAwYTciLCJpYXQiOjE3NDM0MjM2NDMsImV4cCI6MTc0MzQzMDg0M30.53ZT7bcyccBxCzQ1NsP8gjvLGT4ICOtoDypMiEYp3Ig
 ###
 PATCH http://localhost:3005/api/users/softDelete
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2VhODg5YmNlMWNmY2M2NzgwMjAwYTciLCJpYXQiOjE3NDM0MjM2NDMsImV4cCI6MTc0MzQzMDg0M30.53ZT7bcyccBxCzQ1NsP8gjvLGT4ICOtoDypMiEYp3Ig

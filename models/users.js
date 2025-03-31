@@ -4,6 +4,9 @@ const UserSchema = new mongoose.Schema(
         name: {
             type: String
         },
+        lastName: {
+            type: String,
+        },
         email: {
             type: String,
             unique: true
@@ -14,6 +17,9 @@ const UserSchema = new mongoose.Schema(
         code: {
             type: String,
             required: false
+        },
+        nif: {
+            type: String
         },
         role: {
             type: String,

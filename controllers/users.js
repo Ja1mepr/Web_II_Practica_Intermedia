@@ -33,18 +33,14 @@ const createItem = async (req, res) => {
         res.status(201).json(userData)
     }catch(err){
         console.log(err)
-        res.status(403).json(err)
+        res.status(403).json("ERROR_CREATING_ITEM")
     }
 }
 
 const validateUser = async (req, res) => {
     try{
         const data = matchedData(req)
-        const user = await UserModel.findOne({email: data.email})
-        if(!user){
-            res.status(400).send('ERROR_USER_DONT_EXISTS')
-            return
-        }
+        const user = req.user
         if(data.code!=user.code){
             res.status(400).send('ERROR_INVALID_CODE')
             return
@@ -56,7 +52,7 @@ const validateUser = async (req, res) => {
         res.json({message: "ACK"})
     }catch(err){
         console.log(err)
-        res.status(403).json(err)
+        res.status(403).json("ERROR_VALIDATING_USER")
     }
 }
 
@@ -89,6 +85,19 @@ const userLogin = async (req, res) => {
     }
 }
 
+const onBoarding = async (req, res) => {
+    try{
+        data = matchedData(req)
+        console.log(data)
+        console.log(req.user)
+        const user = await UserModel.findOneAndUpdate({email: req.user.email}, {name: data.name}, {lastName: data.lastName}, {nif: data.nif})
+        res.status(200).json(user)
+    }catch(err){
+        console.log(err)
+        res.status(403).send('ERROR_ON_BOARDING_USER')
+    }
+}
+
 const hardDeleteItem = async (req, res) => {
     try{
         await UserModel.findOneAndDelete({email: req.user.email})
@@ -110,4 +119,4 @@ const softDeleteItem = async (req, res) => {
     }
 }
 
-module.exports = {getItem, createItem, userLogin, validateUser, hardDeleteItem, softDeleteItem}
+module.exports = {getItem, createItem, userLogin, validateUser, onBoarding, hardDeleteItem, softDeleteItem}
