@@ -3,7 +3,15 @@ const {matchedData} = require('express-validator')
 const {encrypt, compare} = require('../utils/handlePassword')
 const {tokenSign} = require('../utils/handleTokenJWT')
 const crypto = require('crypto')
-const {authMiddleware} = require('../middleware/session')
+
+const getItem = async (req, res) => {
+    try{
+        res.status(200).json(req.user)
+    }catch(err){
+        console.log(err)
+        res.status(403).json(err)
+    }
+}
 
 const createItem = async (req, res) => {
     try{
@@ -81,4 +89,25 @@ const userLogin = async (req, res) => {
     }
 }
 
-module.exports = {createItem, userLogin, validateUser}
+const hardDeleteItem = async (req, res) => {
+    try{
+        await UserModel.findOneAndDelete({email: req.user.email})
+        console.log(`El usuario ${req.user.name} ha sido eliminado`)
+        res.status(200).json({message: "usuario eliminado(hard delete)"})
+    }catch(err){
+        console.log(err)
+        res.status(403).send("ERROR_DELETING_USER")
+    }
+}
+
+const softDeleteItem = async (req, res) => {
+    try{
+        await UserModel.findOneAndUpdate({email: req.user.email}, {deletedAt: new Date()})
+        res.status(200).json({message: "usuario eliminado(soft delete)"})
+    }catch(err){
+        console.log(err)
+        res.status(403).send("ERROR_DELETING_USER")
+    }
+}
+
+module.exports = {getItem, createItem, userLogin, validateUser, hardDeleteItem, softDeleteItem}

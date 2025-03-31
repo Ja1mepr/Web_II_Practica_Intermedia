@@ -24,6 +24,10 @@ const UserSchema = new mongoose.Schema(
             type: String,
             enum: ["pending", "validated"],
             default: "pending"
+        },
+        deletedAt: { 
+            type: Date, 
+            default: null
         }
     },
     {

@@ -1,23 +1,23 @@
-
+ 
 ###
 POST http://localhost:3005/api/users/register
 Content-Type: application/json
 
 {
     "name": "Jaime",
-    "email": "edpr@gmail.com",
+    "email": "carpr@gmail.com",
     "password": "jaime123"
 }
 
 ###
 PUT http://localhost:3005/api/users/validation
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2U2ZmZhNDcxNWM1MDg1NzIxM2I2ZDciLCJpYXQiOjE3NDMxOTE5OTgsImV4cCI6MTc0MzE5OTE5OH0.WmoNK361uyBRxCBSXNZUZA8jAzlsN_P4aspsYxbmawE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2VhODEwNzM1ZGU4MTA0M2MwMGY1OTEiLCJpYXQiOjE3NDM0MjE3MDMsImV4cCI6MTc0MzQyODkwM30.ANSzGfN8KXD4zAcA1zCOaa3-_qJt33_7dMqr52R-C8I
 Content-Type: application/json
 
 {
-    "email": "edpr@gmail.com",
+    "email": "carpr@gmail.com",
     "password": "jaime123",
-    "code": 976410
+    "code": 605327
 }
 
 ###
@@ -39,3 +39,15 @@ Content-Type: image/jpeg
 
 < ./LegoLogo.jpg
 --boundary123--
+
+###
+GET http://localhost:3005/api/users/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2VhODg5YmNlMWNmY2M2NzgwMjAwYTciLCJpYXQiOjE3NDM0MjM2NDMsImV4cCI6MTc0MzQzMDg0M30.53ZT7bcyccBxCzQ1NsP8gjvLGT4ICOtoDypMiEYp3Ig
+
+###
+DELETE http://localhost:3005/api/users/hardDelete
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2VhODEwNzM1ZGU4MTA0M2MwMGY1OTEiLCJpYXQiOjE3NDM0MjE3MDMsImV4cCI6MTc0MzQyODkwM30.ANSzGfN8KXD4zAcA1zCOaa3-_qJt33_7dMqr52R-C8I
+
+###
+PATCH http://localhost:3005/api/users/softDelete
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2VhODg5YmNlMWNmY2M2NzgwMjAwYTciLCJpYXQiOjE3NDM0MjM2NDMsImV4cCI6MTc0MzQzMDg0M30.53ZT7bcyccBxCzQ1NsP8gjvLGT4ICOtoDypMiEYp3Ig
