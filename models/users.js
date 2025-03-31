@@ -34,6 +34,9 @@ const UserSchema = new mongoose.Schema(
         deletedAt: { 
             type: Date, 
             default: null
+        },
+        autonomous: {
+            type: Boolean
         }
     },
     {

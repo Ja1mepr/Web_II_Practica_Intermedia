@@ -9,7 +9,7 @@ const getItem = async (req, res) => {
         res.status(200).json(req.user)
     }catch(err){
         console.log(err)
-        res.status(403).json(err)
+        res.status(403).json("ERROR_GETTING_ITEM")
     }
 }
 
@@ -88,8 +88,6 @@ const userLogin = async (req, res) => {
 const onBoarding = async (req, res) => {
     try{
         data = matchedData(req)
-        console.log(data)
-        console.log(req.user)
         const user = await UserModel.findOneAndUpdate({email: req.user.email}, {name: data.name}, {lastName: data.lastName}, {nif: data.nif})
         res.status(200).json(user)
     }catch(err){
@@ -119,4 +117,11 @@ const softDeleteItem = async (req, res) => {
     }
 }
 
-module.exports = {getItem, createItem, userLogin, validateUser, onBoarding, hardDeleteItem, softDeleteItem}
+const deleteItem = async (req, res) => {
+    if(req.query.soft=='false')
+        hardDeleteItem(req, res)
+    else
+        softDeleteItem(req, res)
+}
+
+module.exports = {getItem, createItem, userLogin, validateUser, onBoarding, deleteItem}
