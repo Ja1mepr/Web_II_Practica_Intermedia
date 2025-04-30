@@ -1,15 +1,28 @@
 const CompanyModel = require('../models/company')
+const UserModel = require('../models/users')
 const {matchedData} = require('express-validator')
 
 const onBoarding = async (req, res) => {
     try{
+        console.log(req.user.autonomous)
         const data = matchedData(req)
-        if(req.user.autonomous){
-            const dataCompany = req.user
+        const user = req.user
+        let company
+        //Si no es autonomo lo anade como empleado de la empresa correspondiente al cif
+        if(!user.autonomous){
+            company = await CompanyModel.findOneAndUpdate({cif: data.cif}, {$addToSet: {employees: user._id}})
+            if(!company)
+                console.log(`El empleado no ha podido ser anadido a la compania con cif: ${data.cif}`)
+            else{
+                const updatedUser = await UserModel.findOneAndUpdate({email: user.email}, {company: company._id})
+                console.log(`Usuario: ${user.name}, ${user._id}\nHa sido anadido como empleado de: ${company.name}, ${company.cif}`)
+            }
+        //Si es autonomo crea una empresa con sus datos personales
         }else{
-            const dataCompany = data
+            company = await CompanyModel.findOneAndUpdate({cif: user.nif}, {name: data.name}, {upsert: true, new: true})
+            console.log(`Compania ${company.name} creada por ${user.name}`)  
+            //Con upsert lo crea si no existe
         }
-        const company = await CompanyModel.create(dataCompany)
         res.status(200).json(company)
     }catch(err){
         console.log(err)

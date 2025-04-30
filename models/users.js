@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const UserSchema = new mongoose.Schema(
     {
+        company: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'company',
+            required: false
+        },
         name: {
             type: String
         },
@@ -15,10 +20,12 @@ const UserSchema = new mongoose.Schema(
             type: String
         },
         code: {
-            type: String,
-            required: false
+            type: String
         },
         nif: {
+            type: String
+        },
+        address: {
             type: String
         },
         role: {
@@ -37,7 +44,11 @@ const UserSchema = new mongoose.Schema(
         },
         autonomous: {
             type: Boolean
-        }
+        },
+        clients: [{
+             type: mongoose.Schema.Types.ObjectId,
+             ref: 'client'
+        }]
     },
     {
         timestamps: true,

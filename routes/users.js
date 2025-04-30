@@ -10,7 +10,7 @@ router.post('/register', validatorCreateItem, createItem)
 
 router.put('/validation', authMiddleware, validatorCode, validateUser)
 
-router.put('/onBoarding', authMiddleware, validatorOnBoarding, onBoarding)
+router.patch('/onBoarding', authMiddleware, validatorOnBoarding, onBoarding)
 
 router.post('/login', validatorLogin, userLogin)
 

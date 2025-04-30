@@ -8,24 +8,20 @@ const validatorCreateItem = [
     (req, res, next) => {return validateResults(req, res, next)}
 ]
 
-const validatorLogin = [
+const validatorUpdateItem = [
+    check('name').exists().notEmpty(),
     check('email').exists().notEmpty().isEmail(),
-    check('password').exists().notEmpty(),
-    (req, res, next) => {return validateResults(req, res, next)}
-]
-const validatorCode = [
-    check('email').exists().notEmpty().isEmail(),
-    check('password').exists().notEmpty(),
-    check('code').exists().notEmpty().isLength({min: 6}, {max: 6}),
     (req, res, next) => {return validateResults(req, res, next)}
 ]
 
-const validatorOnBoarding = [
-    check('name').optional().isString(),
-    check('lastName').optional().isString(),
-    check('nif').exists().notEmpty().isLength({min: 9}, {max: 9}),
-    check('address').optional().isString(),
-    (req, res, next) => { return validateResults(req, res, next) }
+const validatorDeleteItem = [
+    check('email').exists().notEmpty().isEmail(),
+    (req, res, next) => {return validateResults(req, res, next)}
 ]
 
-module.exports = {validatorCreateItem, validatorLogin, validatorCode, validatorOnBoarding}
+const validatorRecoverItem = [
+    check('email').exists().notEmpty().isEmail(),
+    (req, res, next) => {return validateResults(req, res, next)}
+]
+
+module.exports = {validatorCreateItem, validatorUpdateItem, validatorDeleteItem, validatorRecoverItem}

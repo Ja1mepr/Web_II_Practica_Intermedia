@@ -4,20 +4,20 @@ POST http://localhost:3005/api/users/register
 Content-Type: application/json
 
 {
-    "name": "Jaime",
-    "email": "carpr@gmail.com",
-    "password": "jaime123"
+    "name": "user_3",
+    "email": "user_3@gmail.com",
+    "password": "user1234"
 }
 
 ###
 PUT http://localhost:3005/api/users/validation
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2VhOGQwODA1OGRkYTE2OThlYWRhNjAiLCJpYXQiOjE3NDM0MjQ3NzYsImV4cCI6MTc0MzQzMTk3Nn0.oIJWqPIYg91cSdqTK91Xy6Jsmtw22w-S36q9MvT0YqI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODExMGUzZDA1ODAxNDI5NzcwYTRlMTYiLCJpYXQiOjE3NDU5NDgyMjEsImV4cCI6MTc0NTk1NTQyMX0._FJgxn-rsxrLqlWZpbvQzDuHB5QygZhTwdIn-GUQGWg
 Content-Type: application/json
 
 {
-    "email": "carpr@gmail.com",
-    "password": "jaime123",
-    "code": 404635
+    "email": "user_2@gmail.com",
+    "password": "user1234",
+    "code": 907223
 }
 
 ###
@@ -25,30 +25,30 @@ POST http://localhost:3005/api/users/login
 Content-Type: application/json
 
 {
-    "email": "carpr@gmail.com",
-    "password": "jaime123"
+    "email": "user_2@gmail.com",
+    "password": "user1234"
 }
 
 ###
-PUT http://localhost:3005/api/users/onBoarding
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2VhOGQwODA1OGRkYTE2OThlYWRhNjAiLCJpYXQiOjE3NDM0MjQ3NzYsImV4cCI6MTc0MzQzMTk3Nn0.oIJWqPIYg91cSdqTK91Xy6Jsmtw22w-S36q9MvT0YqI
+PATCH http://localhost:3005/api/users/onBoarding
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODExMGI1Nzg1YTA4MWJiODYyYmNkZDkiLCJpYXQiOjE3NDU5NTQxNjIsImV4cCI6MTc0NTk2MTM2Mn0.p9Kp1crt7Qh9p08W3vvTDOdmAkq2OeEGnfFKrKIXer4
 Content-Type: application/json
 
 {
-    "name": "Pedro",
-    "lastName": "Ruiz",
-    "nif": "123456789"
+    "name": "user_2",
+    "lastName": "resu",
+    "nif": "999999991",
+    "address": "Paper Street, 0"
 }
 
 ###
 PATCH http://localhost:3005/api/company/onBoarding
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2VhY2I4MTg5ODYyZmNlNjhiZjY2NzIiLCJpYXQiOjE3NDM0NDQzMjIsImV4cCI6MTc0MzQ1MTUyMn0.18uX1p4PVGVpR05nzf_0pF-gSPht5bSyGqskOqvN0_Q
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODExMGI1Nzg1YTA4MWJiODYyYmNkZDkiLCJpYXQiOjE3NDU5NTQxNjIsImV4cCI6MTc0NTk2MTM2Mn0.p9Kp1crt7Qh9p08W3vvTDOdmAkq2OeEGnfFKrKIXer4
 Content-Type: application/json
 
 {
-    "name": "Pedro",
-    "lastName": "Ruiz",
-    "nif": "123456789"
+    "name": "company_1",
+    "cif": "999999999"
 }
 
 ###

@@ -1,4 +1,5 @@
 const UserModel = require('../models/users')
+const CompanyModel = require('../models/company')
 const {matchedData} = require('express-validator')
 const {encrypt, compare} = require('../utils/handlePassword')
 const {tokenSign} = require('../utils/handleTokenJWT')
@@ -19,8 +20,10 @@ const createItem = async (req, res) => {
         //Encriptamos la constraseña
         const password = await encrypt(data.password)
         const code = crypto.randomInt(100000, 999999).toString()
+        const autonomous = false
         //Creamos un nuevo objeto modificando la contraseña por la encriptada
-        const body = {...data, password, code} //Si password no es un campo del objeto lo añade,  si no lo sobreescribe
+        const body = {...data, password, code, autonomous} //Si password no es un campo del objeto lo añade,  si no lo sobreescribe
+        console.log("A")
         const user = await UserModel.create(body) 
         //Oculta la contraseña en la respuesta
         user.set('password', undefined, {strict: false})
@@ -29,7 +32,7 @@ const createItem = async (req, res) => {
             token: await tokenSign(user),
             user: user
         }
-        console.log('Recurso creado\nCode:'+code)
+        console.log('Recurso creado\nCode: '+code)
         res.status(201).json(userData)
     }catch(err){
         console.log(err)
@@ -87,9 +90,10 @@ const userLogin = async (req, res) => {
 
 const onBoarding = async (req, res) => {
     try{
-        data = matchedData(req)
-        const user = await UserModel.findOneAndUpdate({email: req.user.email}, {name: data.name}, {lastName: data.lastName}, {nif: data.nif})
-        res.status(200).json(user)
+        const data = matchedData(req)
+        const user = req.user
+        const userData = await UserModel.findByIdAndUpdate(user._id, data, {new: true})
+        res.status(200).json(userData)
     }catch(err){
         console.log(err)
         res.status(403).send('ERROR_ON_BOARDING_USER')
@@ -100,7 +104,7 @@ const hardDeleteItem = async (req, res) => {
     try{
         await UserModel.findOneAndDelete({email: req.user.email})
         console.log(`El usuario ${req.user.name} ha sido eliminado`)
-        res.status(200).json({message: "usuario eliminado(hard delete)"})
+        res.status(200).json({message: "Usuario eliminado(hard delete)"})
     }catch(err){
         console.log(err)
         res.status(403).send("ERROR_DELETING_USER")
@@ -110,7 +114,7 @@ const hardDeleteItem = async (req, res) => {
 const softDeleteItem = async (req, res) => {
     try{
         await UserModel.findOneAndUpdate({email: req.user.email}, {deletedAt: new Date()})
-        res.status(200).json({message: "usuario eliminado(soft delete)"})
+        res.status(200).json({message: "Usuario eliminado(soft delete)"})
     }catch(err){
         console.log(err)
         res.status(403).send("ERROR_DELETING_USER")

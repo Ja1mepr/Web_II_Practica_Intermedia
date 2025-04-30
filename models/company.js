@@ -10,7 +10,11 @@ const CompanySchema = new mongoose.Schema(
         },
         address: {
             type: String
-        }
+        },
+        employees: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'users'
+        }]
     },
     {
         timestamps: true,
