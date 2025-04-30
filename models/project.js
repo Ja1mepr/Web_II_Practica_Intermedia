@@ -22,6 +22,6 @@ const ProjectSchema = new mongoose.Schema(
 );
 
 //Index compuesto que permite que la clave sea unica solo para los proyectos creados por el mismo creador
-ProjectSchema.index({name: 1, createdBy: 1}, {unique: true})
+ProjectSchema.index({createdBy: 1, name: 1}, {unique: true})
 
 module.exports = mongoose.model("project", ProjectSchema)

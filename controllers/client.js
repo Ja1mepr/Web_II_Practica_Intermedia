@@ -49,7 +49,7 @@ const updateItem = async (req, res) => {
         res.status(200).json(clientData)
     }catch(err){
         console.log(err)
-        res.status(403).json("ERROR_UPDATING_CLIENTS")
+        res.status(403).json("ERROR_UPDATING_CLIENT")
     }
 }
 

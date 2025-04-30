@@ -1,0 +1,8 @@
+POST http://localhost:3005/api/deliverynote/create
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODExMGI1Nzg1YTA4MWJiODYyYmNkZDkiLCJpYXQiOjE3NDYwMjg0NTksImV4cCI6MTc0NjAzNTY1OX0.StqfoTIifNMzaZjtY4Xff4QUcItGQKWJNip55DdJz1I
+Content-Type: application/json
+
+{
+    "project_name": "project_2",
+    "number": "02"
+}
