@@ -5,7 +5,9 @@ const ClientModel = require("../models/client")
 const getItem = async (req, res) => {
     try{
         const project_id = req.params.id
-        client = await ProjectModel.findById(project_id)
+        const client = await ProjectModel.findById(project_id)
+        if(client==null)
+            res.status(404).json('ITEM_NOT_FOUND')
         res.status(200).json(client)
     }catch(err){
         console.log(err)
@@ -44,13 +46,10 @@ const createItem = async (req, res) => {
 const updateItem = async (req, res) => {
     try{
         const data = matchedData(req)
-        const exists = await ProjectModel.findOne({name: data.name})
-        let updatedItem
-        if(!exists){
-            updatedItem = await ProjectModel.findByIdAndUpdate(req.params.id, data, {new: true})
-            res.status(200).json(updatedItem)
-        }else
-            res.status(403).send('THE_NAME_IS_ALREADY_IN_USE')
+        const item = await ProjectModel.findByIdAndUpdate(req.params.id, data)
+        if(item==null)
+            res.status(404).send('ITEM_NOT_FOUND')
+        res.status(200).json('ITEM_UPDATED')
     }catch(err){
         console.log(err)
         res.status(403).json("ERROR_UPDATING_PROJECT")
@@ -61,10 +60,9 @@ const hardDeleteItem = async (req, res) => {
     try{
         const data = matchedData(req)
         const deleted = await ProjectModel.findOneAndDelete({email: data.email})
-        if(deleted)
-            res.status(200).json({message: "Proyecto eliminado(hard delete)"})
-        else
-            res.status(403).send(`Project with key ${data.email} does not exist`)
+        if(deleted==null)
+            res.status(404).json('ITEM_NOT_FOUND')
+        res.status(200).json({message: "Proyecto eliminado(hard delete)"})
     }catch(err){
         console.log(err)
         res.status(403).send("ERROR_DELETING_PROJECT")
@@ -75,6 +73,8 @@ const softDeleteItem = async (req, res) => {
     try{
         const data = matchedData(req)
         const updated = await ProjectModel.findOneAndUpdate({email: data.email}, {deletedAt: new Date()}, {new: true})
+        if(updated==null)
+            res.status(404).json('ITEM_NOT_FOUND')
         res.status(200).json({message: "Proyecto eliminado(soft delete)"})
     }catch(err){
         console.log(err)
@@ -92,6 +92,8 @@ const deleteItem = async (req, res) => {
 const getArchivedItems = async (req, res) => {
     try{
         const archived = await ProjectModel.find({deletedAt: { $exists: true, $ne: null}})
+        if(archived==null)
+            res.status(404).json('ITEM_NOT_FOUND')    
         res.status(200).json(archived)
     }catch(err){
         console.log(err)
@@ -104,6 +106,8 @@ const recoverArchivedItem = async (req, res) => {
     try{
         const data = matchedData(req)
         const archived = await ProjectModel.findOneAndUpdate({email: data.email}, {deletedAt: null}, {new: true})
+        if(archived==null)
+            res.status(404).json('ITEM_NOT_FOUND') 
         res.status(200).json(archived)
     }catch(err){
         console.log(err)

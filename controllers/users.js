@@ -45,7 +45,7 @@ const validateUser = async (req, res) => {
         const data = matchedData(req)
         const user = req.user
         if(data.code!=user.code){
-            res.status(400).send('ERROR_INVALID_CODE')
+            res.status(403).send('ERROR_INVALID_CODE')
             return
         }
         console.log(data.code+"---"+user.code)
@@ -64,12 +64,12 @@ const userLogin = async (req, res) => {
         const data = matchedData(req)
         const user = await UserModel.findOne({email: data.email})
         if(!user){
-            res.status(400).send('ERROR_USER_DONT_EXISTS')
+            res.status(404).send('ERROR_USER_DONT_EXISTS')
             return
         }
         const check = await compare(data.password, user.password)
         if(!check){
-            res.status(400).send('ERROR_INVALID_PASSWORD')
+            res.status(401).send('ERROR_INVALID_PASSWORD')
             return
         }
         //Oculta la contraseña en la respuesta
@@ -88,7 +88,7 @@ const userLogin = async (req, res) => {
     }
 }
 
-const onBoarding = async (req, res) => {
+const updateItem = async (req, res) => {
     try{
         const data = matchedData(req)
         const user = req.user
@@ -102,7 +102,9 @@ const onBoarding = async (req, res) => {
 
 const hardDeleteItem = async (req, res) => {
     try{
-        await UserModel.findOneAndDelete({email: req.user.email})
+        const deleted = await UserModel.findOneAndDelete({email: req.user.email})
+        if(!deleted)
+            res.status(404).json('USER_NOT_FOUND')
         console.log(`El usuario ${req.user.name} ha sido eliminado`)
         res.status(200).json({message: "Usuario eliminado(hard delete)"})
     }catch(err){
@@ -113,7 +115,9 @@ const hardDeleteItem = async (req, res) => {
 
 const softDeleteItem = async (req, res) => {
     try{
-        await UserModel.findOneAndUpdate({email: req.user.email}, {deletedAt: new Date()})
+        const deleted = await UserModel.findOneAndUpdate({email: req.user.email}, {deletedAt: new Date()})
+        if(!deleted)
+            res.status(404).json('USER_NOT_FOUND')
         res.status(200).json({message: "Usuario eliminado(soft delete)"})
     }catch(err){
         console.log(err)
@@ -128,4 +132,4 @@ const deleteItem = async (req, res) => {
         softDeleteItem(req, res)
 }
 
-module.exports = {getItem, createItem, userLogin, validateUser, onBoarding, deleteItem}
+module.exports = {getItem, createItem, userLogin, validateUser, updateItem, deleteItem}

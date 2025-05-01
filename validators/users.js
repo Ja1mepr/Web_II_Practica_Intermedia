@@ -20,7 +20,7 @@ const validatorCode = [
     (req, res, next) => {return validateResults(req, res, next)}
 ]
 
-const validatorOnBoarding = [
+const validatorUpdateItem = [
     check('name').optional().isString(),
     check('lastName').optional().isString(),
     check('nif').exists().notEmpty().isLength({min: 9}, {max: 9}),
@@ -28,4 +28,4 @@ const validatorOnBoarding = [
     (req, res, next) => { return validateResults(req, res, next) }
 ]
 
-module.exports = {validatorCreateItem, validatorLogin, validatorCode, validatorOnBoarding}
+module.exports = {validatorCreateItem, validatorLogin, validatorCode, validatorUpdateItem}

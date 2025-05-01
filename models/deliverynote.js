@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const project = require('./project');
 const DeliverynoteSchema = new mongoose.Schema(
     {
         project_name: {
@@ -15,7 +14,7 @@ const DeliverynoteSchema = new mongoose.Schema(
         },
         createdBy: { 
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'user', 
+            ref: 'users', 
             required: true 
         },
         date: { 
@@ -36,7 +35,10 @@ const DeliverynoteSchema = new mongoose.Schema(
         }],
         hours: [{
             type: Number
-        }]
+        }],
+        signature: {
+            type: String
+        }
     }
 )
 

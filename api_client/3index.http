@@ -4,5 +4,12 @@ Content-Type: application/json
 
 {
     "project_name": "project_2",
-    "number": "02"
+    "number": "05"
 }
+
+###
+GET http://localhost:3005/api/deliverynote/68124cec147ec0ad550e2eac
+
+###
+GET http://localhost:3005/api/deliverynote/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODExMGI1Nzg1YTA4MWJiODYyYmNkZDkiLCJpYXQiOjE3NDYwMjg0NTksImV4cCI6MTc0NjAzNTY1OX0.StqfoTIifNMzaZjtY4Xff4QUcItGQKWJNip55DdJz1I

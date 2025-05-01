@@ -46,6 +46,8 @@ const updateItem = async (req, res) => {
     try{
         const data = matchedData(req)
         const clientData = await ClientModel.findOneAndUpdate({email: data.email}, data, {new: true})
+        if(clientData==null)
+            res.status(404).json('ITEM_NOT_FOUND')
         res.status(200).json(clientData)
     }catch(err){
         console.log(err)
@@ -57,10 +59,9 @@ const hardDeleteItem = async (req, res) => {
     try{
         const data = matchedData(req)
         const deleted = await ClientModel.findOneAndDelete({email: data.email})
-        if(deleted)
-            res.status(200).json({message: "Cliente eliminado(hard delete)"})
-        else
-            res.status(403).send(`Client with key ${data.email} does not exist`)
+        if(deleted==null)
+            res.status(404).send(`Client with key ${data.email} not found`)
+        res.status(200).json({message: "Cliente eliminado(hard delete)"})
     }catch(err){
         console.log(err)
         res.status(403).send("ERROR_DELETING_CLIENT")
@@ -71,7 +72,10 @@ const softDeleteItem = async (req, res) => {
     try{
         const data = matchedData(req)
         const updated = await ClientModel.findOneAndUpdate({email: data.email}, {deletedAt: new Date()}, {new: true})
+        if(updated==null)
+            res.status(404).send(`Client with key ${data.email} not found`)    
         res.status(200).json({message: "Cliente eliminado(soft delete)"})
+            
     }catch(err){
         console.log(err)
         res.status(403).send("ERROR_DELETING_CLIENT")
@@ -100,6 +104,8 @@ const recoverArchivedItem = async (req, res) => {
     try{
         const data = matchedData(req)
         const archived = await ClientModel.findOneAndUpdate({email: data.email}, {deletedAt: null}, {new: true})
+        if(!archived)
+            res.status(404).json('ITEM_DOES_NOT_EXIST')
         res.status(200).json(archived)
     }catch(err){
         console.log(err)

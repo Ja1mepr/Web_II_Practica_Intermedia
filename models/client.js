@@ -12,7 +12,7 @@ const ClientSchema = new mongoose.Schema(
         },
         createdBy: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'users',
+            ref: 'user',
             required: true
         },
         deletedAt: { 
