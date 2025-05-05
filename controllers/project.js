@@ -7,7 +7,7 @@ const getItem = async (req, res) => {
         const project_id = req.params.id
         const client = await ProjectModel.findById(project_id)
         if(client==null)
-            res.status(404).json('ITEM_NOT_FOUND')
+            return res.status(404).json('ITEM_NOT_FOUND')
         res.status(200).json(client)
     }catch(err){
         console.log(err)
@@ -29,14 +29,16 @@ const getItems = async (req, res) => {
 const createItem = async (req, res) => {
     try{
         const data = matchedData(req)
-        createdBy = req.user._id
+        const createdBy = req.user._id
         client_associated = await ClientModel.findOne({email: data.client_email}) 
         const project = {...data, createdBy: createdBy, client_associated: client_associated._id}
         const projectData = await ProjectModel.create(project)
-        const update_client = await ClientModel.findOneAndUpdate({email: data.client_email}, 
+        const updated_client = await ClientModel.findOneAndUpdate({email: data.client_email}, 
             {$addToSet: { projects: projectData._id}}, {new: true}
         )
-        res.status(200).json(projectData)
+        if(updated_client==null)
+            return res.status(404).send('CLIENT_DOESNT_EXIST')
+        res.status(201).json(projectData)
     }catch(err){
         console.log(err)
         res.status(403).json("ERROR_CREATING_PROJECT")
@@ -48,7 +50,7 @@ const updateItem = async (req, res) => {
         const data = matchedData(req)
         const item = await ProjectModel.findByIdAndUpdate(req.params.id, data)
         if(item==null)
-            res.status(404).send('ITEM_NOT_FOUND')
+            return res.status(404).send('ITEM_NOT_FOUND')
         res.status(200).json('ITEM_UPDATED')
     }catch(err){
         console.log(err)
@@ -59,9 +61,9 @@ const updateItem = async (req, res) => {
 const hardDeleteItem = async (req, res) => {
     try{
         const data = matchedData(req)
-        const deleted = await ProjectModel.findOneAndDelete({email: data.email})
+        const deleted = await ProjectModel.findOneAndDelete({name: data.name})
         if(deleted==null)
-            res.status(404).json('ITEM_NOT_FOUND')
+            return res.status(404).json('ITEM_NOT_FOUND')
         res.status(200).json({message: "Proyecto eliminado(hard delete)"})
     }catch(err){
         console.log(err)
@@ -72,9 +74,9 @@ const hardDeleteItem = async (req, res) => {
 const softDeleteItem = async (req, res) => {
     try{
         const data = matchedData(req)
-        const updated = await ProjectModel.findOneAndUpdate({email: data.email}, {deletedAt: new Date()}, {new: true})
+        const updated = await ProjectModel.findOneAndUpdate({name: data.name}, {deletedAt: new Date()}, {new: true})
         if(updated==null)
-            res.status(404).json('ITEM_NOT_FOUND')
+            return res.status(404).json('ITEM_NOT_FOUND')
         res.status(200).json({message: "Proyecto eliminado(soft delete)"})
     }catch(err){
         console.log(err)
@@ -83,17 +85,17 @@ const softDeleteItem = async (req, res) => {
 }
 
 const deleteItem = async (req, res) => {
-    if(req.query.soft=='false')
-        hardDeleteItem(req, res)
-    else
+    if(req.query.soft!='false')
         softDeleteItem(req, res)
+    else
+        hardDeleteItem(req, res)
 }
 
 const getArchivedItems = async (req, res) => {
     try{
         const archived = await ProjectModel.find({deletedAt: { $exists: true, $ne: null}})
         if(archived==null)
-            res.status(404).json('ITEM_NOT_FOUND')    
+            return res.status(404).json('ITEM_NOT_FOUND')    
         res.status(200).json(archived)
     }catch(err){
         console.log(err)
@@ -105,9 +107,10 @@ const getArchivedItems = async (req, res) => {
 const recoverArchivedItem = async (req, res) => {
     try{
         const data = matchedData(req)
-        const archived = await ProjectModel.findOneAndUpdate({email: data.email}, {deletedAt: null}, {new: true})
+        const project_id = req.params.id
+        const archived = await ProjectModel.findOneAndUpdate({name: data.name}, {deletedAt: null}, {new: true})
         if(archived==null)
-            res.status(404).json('ITEM_NOT_FOUND') 
+            return res.status(404).json('ITEM_NOT_FOUND') 
         res.status(200).json(archived)
     }catch(err){
         console.log(err)

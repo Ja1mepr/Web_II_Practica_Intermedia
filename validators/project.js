@@ -13,12 +13,12 @@ const validatorUpdateItem = [
 ]
 
 const validatorDeleteItem = [
-    check('email').exists().notEmpty().isEmail(),
+    check('name').exists().notEmpty(),
     (req, res, next) => {return validateResults(req, res, next)}
 ]
 
 const validatorRecoverItem = [
-    check('email').exists().notEmpty().isEmail(),
+    check('name').exists().notEmpty(),
     (req, res, next) => {return validateResults(req, res, next)}
 ]
 
