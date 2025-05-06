@@ -44,8 +44,10 @@ const validateUser = async (req, res) => {
     try{
         const data = matchedData(req)
         const user = req.user
-        if(data.code!=user.code)
-            return res.status(402).send('ERROR_INVALID_CODE')
+        if(data.code!=user.code){
+            res.status(402).send('ERROR_INVALID_CODE')
+            return
+        }
         console.log(data.code+"---"+user.code)
         // Actualizamos el campo estatus para validarlo
         await UserModel.findOneAndUpdate({email: data.email}, {status: 'validated'}, {new: true})
@@ -60,11 +62,15 @@ const userLogin = async (req, res) => {
     try{
         const data = matchedData(req)
         const user = await UserModel.findOne({email: data.email})
-        if(user==null)  
-            return res.status(404).send('ERROR_USER_DONT_EXISTS')
+        if(user==null){  
+            res.status(404).send('ERROR_USER_DONT_EXISTS')
+            return
+        }
         const check = await compare(data.password, user.password)
-        if(!check)
-            return res.status(403).send('ERROR_INVALID_PASSWORD')
+        if(!check){
+            res.status(403).send('ERROR_INVALID_PASSWORD')
+            return 
+        }
         //Oculta la contraseña en la respuesta
         user.set('password', undefined, {strict: false})
 
@@ -72,7 +78,7 @@ const userLogin = async (req, res) => {
             token: await  tokenSign(user),
             user: user
         }
-        res.set("Authorization", `Bearer ${userData.token}`)
+        user.set("Authorization", `Bearer ${userData.token}`)
         res.json(userData)
     }catch(err){
         console.log(err)
@@ -95,8 +101,10 @@ const updateItem = async (req, res) => {
 const hardDeleteItem = async (req, res) => {
     try{
         const deleted = await UserModel.findOneAndDelete({email: req.user.email})
-        if(!deleted)
-            return res.status(404).json('USER_NOT_FOUND')
+        if(!deleted){
+            res.status(404).json('USER_NOT_FOUND')
+            return
+        }
         console.log(`El usuario ${req.user.name} ha sido eliminado`)
         res.status(200).json({message: "Usuario eliminado(hard delete)"})
     }catch(err){
@@ -108,8 +116,10 @@ const hardDeleteItem = async (req, res) => {
 const softDeleteItem = async (req, res) => {
     try{
         const deleted = await UserModel.findOneAndUpdate({email: req.user.email}, {deletedAt: new Date()})
-        if(!deleted)
-            return res.status(404).json('USER_NOT_FOUND')
+        if(!deleted){
+            res.status(404).json('USER_NOT_FOUND')
+            return 
+        }
         res.status(200).json({message: "Usuario eliminado(soft delete)"})
     }catch(err){
         console.log(err)

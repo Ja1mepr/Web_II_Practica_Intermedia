@@ -14,7 +14,7 @@ const options = {
             },
           },
       },
-      title: 'API de Albaranes',
+      title: 'API Practica Web',
       version: '1.0.0',
       description: 'Documentación de la API para gestionar albaranes, usuarios, proyectos y firmas',
     },

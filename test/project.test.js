@@ -26,7 +26,7 @@ describe('Proyect API', () => {
             email: 'testclient@example.com',
             password: 'testpassword123'
         })
-        expect(client_res.body)
+        expect(client_res.body).toBeDefined()
         client = client_res.body
     })
 
@@ -151,17 +151,17 @@ describe('Proyect API', () => {
             .delete(`/api/project/delete/`)
             .set('Authorization', `Bearer ${token}`)
             .send({
-                name: project.name
+                name: 'TestProjectUpdated'
             })
         expect(res.statusCode).toBe(200)
     })
 
-    test('DELETE /project/delete/:id - elimina project', async () => {
+    test('DELETE /project/delete/ - elimina project', async () => {
         const res = await request(app)
-            .delete(`/api/project/delete/${project._id}`)
+            .delete(`/api/project/delete/`)
             .set('Authorization', `Bearer ${invalid_token}`)
             .send({
-                name: project.name
+                name: 'TestProjectUpdated'
             })
         expect(res.statusCode).toBe(401)
     })
@@ -180,27 +180,27 @@ describe('Proyect API', () => {
         expect(res.statusCode).toBe(200)
     })
 
-    test('PATCH /project/recover/ - recupera clientes archivados', async () => {
+    test('PATCH /project/recover/ - recupera project archivado', async () => {
         const res = await request(app)
             .patch(`/api/project/recover/`)
             .set('Authorization', `Bearer ${token}`)
             .send({
-                name: project.name
+                name: 'TestProjectUpdated'
             })
         expect(res.statusCode).toBe(200)
     })
 
-    test('PATCH /project/recover/ - recupera clientes archivados', async () => {
+    test('PATCH /project/recover/ - recupera project archivados', async () => {
         const res = await request(app)
             .patch(`/api/project/recover/`)
             .set('Authorization', `Bearer ${invalid_token}`)
             .send({
-                name: project.name
+                name: 'TestProjectUpdated'
             })
         expect(res.statusCode).toBe(401)
     })
 
-    test('PATCH /project/recover/ - recupera clientes archivados', async () => {
+    test('PATCH /project/recover/ - recupera project archivados', async () => {
         const res = await request(app)
             .patch(`/api/project/recover/`)
             .set('Authorization', `Bearer ${token}`)

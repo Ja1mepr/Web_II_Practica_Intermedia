@@ -1,4 +1,3 @@
-const deliveryNote = require('../models/deliverynote')
 const DeliverynoteModel = require('../models/deliverynote')
 const ProjectModel = require('../models/project')
 const UserModel = require('../models/users')
@@ -137,9 +136,7 @@ const signItem = async (req, res) => {
         const data = matchedData(req)
         const deliverynote_id = req.params.id
         const itemSigned = await deliveryNote.findByIdAndUpdate(deliverynote_id, {signature: data.signature}, {new: true})
-
-        
-        
+        res.status(200).json(itemSigned)
     }catch(err){
         console.log(err)
         res.status(403).json("ERROR_SIGNING_DELIVERYNOTE")
