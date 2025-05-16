@@ -1,69 +1,70 @@
 POST http://localhost:3005/api/client/create
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODExMGI1Nzg1YTA4MWJiODYyYmNkZDkiLCJpYXQiOjE3NDYwMTk5MjEsImV4cCI6MTc0NjAyNzEyMX0.P8a3G3MQCb9kWhjLzpe2O8-hhQuhYk01B3uZ-6EO6l0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDcwNzYyMzMsImV4cCI6MTc0NzA4MzQzM30.pueTcvVYiOF3O4Zh3RDaCTf5Dh-0x6i5iL1NbzLPpow
 Content-Type: application/json
 
 {
-    "name": "client_3",
-    "email": "client_3@gmail.com",
+    "name": "client_1A",
+    "email": "client_1A@gmail.com",
     "password": "client_1"
 }
 
 ###
-GET http://localhost:3005/api/client/6811281cf060c6f2deb2b83f
-
+GET http://localhost:3005/api/client/682244b34c9594fd8aaf02f1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDcwNzYyMzMsImV4cCI6MTc0NzA4MzQzM30.pueTcvVYiOF3O4Zh3RDaCTf5Dh-0x6i5iL1NbzLPpow
 
 ###
 GET http://localhost:3005/api/client/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODExMGI1Nzg1YTA4MWJiODYyYmNkZDkiLCJpYXQiOjE3NDYwMTk5MjEsImV4cCI6MTc0NjAyNzEyMX0.P8a3G3MQCb9kWhjLzpe2O8-hhQuhYk01B3uZ-6EO6l0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDc0MDE4ODEsImV4cCI6MTc0NzQwOTA4MX0.D6D41bm1tDIuVY8yCkPxhejtzpxo3xIc9CUTHS1lU60
 
 ###
 PATCH http://localhost:3005/api/client/update
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODExMGI1Nzg1YTA4MWJiODYyYmNkZDkiLCJpYXQiOjE3NDU5NTQxNjIsImV4cCI6MTc0NTk2MTM2Mn0.p9Kp1crt7Qh9p08W3vvTDOdmAkq2OeEGnfFKrKIXer4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDcwNzYyMzMsImV4cCI6MTc0NzA4MzQzM30.pueTcvVYiOF3O4Zh3RDaCTf5Dh-0x6i5iL1NbzLPpow
 Content-Type: application/json
 
 {
-    "name": "client_1.1",
-    "email": "client_1@gmail.com"
+    "name": "client_1.1A",
+    "email": "client_1A@gmail.com"
 }
 
 ###
 DELETE http://localhost:3005/api/client/delete?soft=true
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODExMGI1Nzg1YTA4MWJiODYyYmNkZDkiLCJpYXQiOjE3NDYwMTk5MjEsImV4cCI6MTc0NjAyNzEyMX0.P8a3G3MQCb9kWhjLzpe2O8-hhQuhYk01B3uZ-6EO6l0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDc0MDE4ODEsImV4cCI6MTc0NzQwOTA4MX0.D6D41bm1tDIuVY8yCkPxhejtzpxo3xIc9CUTHS1lU60
 Content-Type: application/json
 
 {
-    "email": "client_4@gmail.com"
+    "email": "client_1A@gmail.com"
 }
 
 ###
 GET http://localhost:3005/api/client/archived
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDc0MDE4ODEsImV4cCI6MTc0NzQwOTA4MX0.D6D41bm1tDIuVY8yCkPxhejtzpxo3xIc9CUTHS1lU60
 
 ###
 PATCH http://localhost:3005/api/client/recover
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODExMGI1Nzg1YTA4MWJiODYyYmNkZDkiLCJpYXQiOjE3NDYwMTk5MjEsImV4cCI6MTc0NjAyNzEyMX0.P8a3G3MQCb9kWhjLzpe2O8-hhQuhYk01B3uZ-6EO6l0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDc0MDE4ODEsImV4cCI6MTc0NzQwOTA4MX0.D6D41bm1tDIuVY8yCkPxhejtzpxo3xIc9CUTHS1lU60
 Content-Type: application/json
 
 {
-    "email": "client_4@gmail.com"
+    "email": "client_1A@gmail.com"
 }
 
 ###
 GET http://localhost:3005/api/project/681200829400d2dde56fdf10
-
+Authorization: Bearer
 
 ###
 GET http://localhost:3005/api/project/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODExMGI1Nzg1YTA4MWJiODYyYmNkZDkiLCJpYXQiOjE3NDYwMjg0NTksImV4cCI6MTc0NjAzNTY1OX0.StqfoTIifNMzaZjtY4Xff4QUcItGQKWJNip55DdJz1I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDc0MDE4ODEsImV4cCI6MTc0NzQwOTA4MX0.D6D41bm1tDIuVY8yCkPxhejtzpxo3xIc9CUTHS1lU60
 
 ###
 POST http://localhost:3005/api/project/create
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODExMGI1Nzg1YTA4MWJiODYyYmNkZDkiLCJpYXQiOjE3NDYwMDk2NzQsImV4cCI6MTc0NjAxNjg3NH0.ZhEfk-1aFYcH2a4nHcoCxtbV0rRgJpSKHmAj6wS-3jM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDcwNzYyMzMsImV4cCI6MTc0NzA4MzQzM30.pueTcvVYiOF3O4Zh3RDaCTf5Dh-0x6i5iL1NbzLPpow
 Content-Type: application/json
 
 {
-    "name": "project_3",
-    "client_email": "client_2@gmail.com"
+    "name": "project_1A",
+    "projectCode": "01",
+    "client_email": "client_1A@gmail.com"
 }
 
 ###
@@ -72,6 +73,27 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODExMGI1N
 Content-Type: application/json
 
 {
-    "name": "project_1.1"
+    "projectCode": "01"
 }
 
+###
+DELETE http://localhost:3005/api/project/delete?soft=true
+Authorization: Bearerey eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDc0MDE4ODEsImV4cCI6MTc0NzQwOTA4MX0.D6D41bm1tDIuVY8yCkPxhejtzpxo3xIc9CUTHS1lU60
+Content-Type: application/json
+
+{
+    "projectCode": "01"
+}
+
+###
+GET http://localhost:3005/api/project/archived
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDc0MDE4ODEsImV4cCI6MTc0NzQwOTA4MX0.D6D41bm1tDIuVY8yCkPxhejtzpxo3xIc9CUTHS1lU60
+
+###
+PATCH http://localhost:3005/api/project/recover/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDc0MDE4ODEsImV4cCI6MTc0NzQwOTA4MX0.D6D41bm1tDIuVY8yCkPxhejtzpxo3xIc9CUTHS1lU60
+Content-Type: application/json
+
+{
+    "projectCode": "01"
+}

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongooseDelete = require('mongoose-delete')
 const UserSchema = new mongoose.Schema(
     {
         company: {
@@ -23,7 +24,9 @@ const UserSchema = new mongoose.Schema(
             type: String
         },
         nif: {
-            type: String
+            type: String,
+            unique: true,
+            sparse: true //Permite valores nulos duplicados
         },
         address: {
             type: String
@@ -38,7 +41,7 @@ const UserSchema = new mongoose.Schema(
             enum: ["pending", "validated"],
             default: "pending"
         },
-        deletedAt: { 
+        deletedAt: {
             type: Date, 
             default: null
         },
@@ -55,5 +58,7 @@ const UserSchema = new mongoose.Schema(
         versionKey: false
     }
 );
+
+UserSchema.plugin(mongooseDelete, {overrideMethods: 'all'})
 
 module.exports = mongoose.model("users", UserSchema);

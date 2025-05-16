@@ -5,6 +5,7 @@ const validatorCreateItem = [
     check('name').exists().notEmpty(),
     check('email').exists().notEmpty().isEmail(),
     check('password').exists().notEmpty().isLength({min: 8}),
+    check('autonomous').isBoolean(),
     (req, res, next) => {return validateResults(req, res, next)}
 ]
 

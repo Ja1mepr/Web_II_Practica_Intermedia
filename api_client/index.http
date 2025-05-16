@@ -1,23 +1,23 @@
- 
 ###
 POST http://localhost:3005/api/users/register
 Content-Type: application/json
 
 {
-    "name": "user_3",
-    "email": "user_3@gmail.com",
-    "password": "user1234"
+    "name": "user_1",
+    "email": "user_1@gmail.com",
+    "password": "user1234",
+    "autonomous": true
 }
 
 ###
 PUT http://localhost:3005/api/users/validation
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODExMGUzZDA1ODAxNDI5NzcwYTRlMTYiLCJpYXQiOjE3NDU5NDgyMjEsImV4cCI6MTc0NTk1NTQyMX0._FJgxn-rsxrLqlWZpbvQzDuHB5QygZhTwdIn-GUQGWg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODFiNzIzZjA4YThiNTM0ZWZjZGZiZjkiLCJpYXQiOjE3NDY2MjkxODMsImV4cCI6MTc0NjYzNjM4M30.VIYrdA_dBUjwaHUT29uaatcPwsfVua8D_DFBefeK2mA
 Content-Type: application/json
 
 {
     "email": "user_2@gmail.com",
     "password": "user1234",
-    "code": 907223
+    "code": 613110
 }
 
 ###
@@ -25,25 +25,25 @@ POST http://localhost:3005/api/users/login
 Content-Type: application/json
 
 {
-    "email": "user_2@gmail.com",
+    "email": "user_A@gmail.com",
     "password": "user1234"
 }
 
 ###
-PATCH http://localhost:3005/api/users/onBoarding
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODExMGI1Nzg1YTA4MWJiODYyYmNkZDkiLCJpYXQiOjE3NDU5NTQxNjIsImV4cCI6MTc0NTk2MTM2Mn0.p9Kp1crt7Qh9p08W3vvTDOdmAkq2OeEGnfFKrKIXer4
+PATCH http://localhost:3005/api/users/update
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDA0OGY5N2UzOTkxNDI1ZTlhYWIiLCJpYXQiOjE3NDcwNzUyNDAsImV4cCI6MTc0NzA4MjQ0MH0.gZvtBijajxGIN_8kQa0XqMFf48l24RtlQVCbMMcLWO0
 Content-Type: application/json
 
 {
-    "name": "user_2",
+    "name": "user_1A",
     "lastName": "resu",
-    "nif": "999999991",
+    "nif": "111111111",
     "address": "Paper Street, 0"
 }
 
 ###
 PATCH http://localhost:3005/api/company/onBoarding
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODExMGI1Nzg1YTA4MWJiODYyYmNkZDkiLCJpYXQiOjE3NDU5NTQxNjIsImV4cCI6MTc0NTk2MTM2Mn0.p9Kp1crt7Qh9p08W3vvTDOdmAkq2OeEGnfFKrKIXer4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODFiNzIzZjA4YThiNTM0ZWZjZGZiZjkiLCJpYXQiOjE3NDY2MjkxODMsImV4cCI6MTc0NjYzNjM4M30.VIYrdA_dBUjwaHUT29uaatcPwsfVua8D_DFBefeK2mA
 Content-Type: application/json
 
 {
@@ -67,5 +67,5 @@ GET http://localhost:3005/api/users/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2VhOGQwODA1OGRkYTE2OThlYWRhNjAiLCJpYXQiOjE3NDM0MjQ3NzYsImV4cCI6MTc0MzQzMTk3Nn0.oIJWqPIYg91cSdqTK91Xy6Jsmtw22w-S36q9MvT0YqI
 
 ###
-DELETE http://localhost:3005/api/users/delete?soft=true
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2VhY2I4MTg5ODYyZmNlNjhiZjY2NzIiLCJpYXQiOjE3NDM0NDA3NzAsImV4cCI6MTc0MzQ0Nzk3MH0.0Ve_cnVNYeUiXZICGm54vjllw0F5SAf3GfuWkHohJ20
+DELETE http://localhost:3005/api/users/delete?soft=false
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ3MjRjOTU5NGZkOGFhZjAyZWIiLCJpYXQiOjE3NDcwNzYyMTAsImV4cCI6MTc0NzA4MzQxMH0.8A1-02f9U6kjif3rKubyHLDC-955Fkszfog8SuozmZY

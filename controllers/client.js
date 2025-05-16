@@ -5,10 +5,13 @@ const { encrypt } = require('../utils/handlePassword')
 
 const getItem = async (req, res) => {
     try{
+        const user = req.user
         const client_id = req.params.id
-        const client = await ClientModel.findById(client_id)
-        if(client==null)
-            return res.status(404).json('ERROR_CLIENT_NOT_FOUND')
+        const client = await ClientModel.findOne({_id: client_id, createdBy: user._id})
+        if(client==null){
+            res.status(404).json('ERROR_CLIENT_NOT_FOUND')
+            return
+        }
         res.status(200).json(client)
     }catch(err){
         console.log(err)
@@ -18,8 +21,8 @@ const getItem = async (req, res) => {
 
 const getItems = async (req, res) => {
     try{
-        const associated = req.user
-        clients = await ClientModel.find({createdBy: associated._id})
+        const user = req.user
+        clients = await ClientModel.find({createdBy: user._id})
         res.status(200).json(clients)
     }catch(err){
         console.log(err)
@@ -47,7 +50,8 @@ const createItem = async (req, res) => {
 const updateItem = async (req, res) => {
     try{
         const data = matchedData(req)
-        const clientData = await ClientModel.findOneAndUpdate({email: data.email}, data, {new: true})
+        const user = req.user
+        const clientData = await ClientModel.findOneAndUpdate({email: data.email, createdBy: user._id}, data, {new: true})
         if(clientData==null)
             return res.status(404).json('ITEM_NOT_FOUND')
         res.status(200).json(clientData)
@@ -60,9 +64,12 @@ const updateItem = async (req, res) => {
 const hardDeleteItem = async (req, res) => {
     try{
         const data = matchedData(req)
-        const deleted = await ClientModel.findOneAndDelete({email: data.email})
-        if(deleted==null)
-            return res.status(404).send(`Client with key ${data.email} not found`)
+        const user = req.user
+        const deleted = await ClientModel.findOneAndDelete({email: data.email, createdBy: user._id})
+        if(deleted==null){
+            res.status(404).send(`CLIENT_NOT_FOUND`)
+            return
+        }
         res.status(200).json({message: "Cliente eliminado(hard delete)"})
     }catch(err){
         console.log(err)
@@ -73,11 +80,16 @@ const hardDeleteItem = async (req, res) => {
 const softDeleteItem = async (req, res) => {
     try{
         const data = matchedData(req)
-        const updated = await ClientModel.findOneAndUpdate({email: data.email}, {deletedAt: new Date()}, {new: true})
-        if(updated==null)
-            return res.status(404).send(`Client with key ${data.email} not found`)    
+        const user = req.user
+        const client = await ClientModel.findOne({email: data.email, createdBy: user._id})
+        if(client==null){
+            res.status(404).send(`CLIENT_NOT_FOUND`)    
+            return 
+        }
+        client.deleted = true
+        client.deletedAt = new Date()
+        const deleted = await client.save()
         res.status(200).json({message: "Cliente eliminado(soft delete)"})
-            
     }catch(err){
         console.log(err)
         res.status(403).send("ERROR_DELETING_CLIENT")
@@ -93,7 +105,8 @@ const deleteItem = async (req, res) => {
 
 const getArchivedItems = async (req, res) => {
     try{
-        const archived = await ClientModel.find({deletedAt: { $exists: true, $ne: null}})
+        const user = req.user
+        const archived = await ClientModel.findDeleted({createdBy: user._id})
         res.status(200).json(archived)
     }catch(err){
         console.log(err)
@@ -105,9 +118,13 @@ const getArchivedItems = async (req, res) => {
 const recoverArchivedItem = async (req, res) => {
     try{
         const data = matchedData(req)
-        const archived = await ClientModel.findOneAndUpdate({email: data.email}, {deletedAt: null}, {new: true})
-        if(archived==null)
-            return res.status(404).json('ITEM_DOES_NOT_EXIST')
+        const user = req.user
+        const archived = await ClientModel.findOneDeleted({email: data.email, createdBy: user._id})
+        if(archived==null){
+            res.status(404).json('NO_ITEM_TO_RECOVER')
+            return
+        }
+        await archived.restore()
         res.status(200).json(archived)
     }catch(err){
         console.log(err)

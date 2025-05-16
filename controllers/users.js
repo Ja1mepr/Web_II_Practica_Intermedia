@@ -20,10 +20,8 @@ const createItem = async (req, res) => {
         //Encriptamos la constraseña
         const password = await encrypt(data.password)
         const code = crypto.randomInt(100000, 999999).toString()
-        const autonomous = false
         //Creamos un nuevo objeto modificando la contraseña por la encriptada
-        const body = {...data, password, code, autonomous} //Si password no es un campo del objeto lo añade,  si no lo sobreescribe
-        console.log("A")
+        const body = {...data, password, code} //Si password no es un campo del objeto lo añade,  si no lo sobreescribe
         const user = await UserModel.create(body) 
         //Oculta la contraseña en la respuesta
         user.set('password', undefined, {strict: false})
@@ -45,7 +43,7 @@ const validateUser = async (req, res) => {
         const data = matchedData(req)
         const user = req.user
         if(data.code!=user.code){
-            res.status(402).send('ERROR_INVALID_CODE')
+            res.status(401).send('ERROR_INVALID_CODE')
             return
         }
         console.log(data.code+"---"+user.code)
@@ -94,7 +92,7 @@ const updateItem = async (req, res) => {
         res.status(200).json(userData)
     }catch(err){
         console.log(err)
-        res.status(403).send('ERROR_ON_BOARDING_USER')
+        res.status(403).send('ERROR_ON_UPDATING_USER')
     }
 }
 
@@ -115,11 +113,10 @@ const hardDeleteItem = async (req, res) => {
 
 const softDeleteItem = async (req, res) => {
     try{
-        const deleted = await UserModel.findOneAndUpdate({email: req.user.email}, {deletedAt: new Date()})
-        if(!deleted){
-            res.status(404).json('USER_NOT_FOUND')
-            return 
-        }
+        const user = req.user
+        user.deleted = true
+        user.deletedAt = new Date()
+        const deleted = await user.save()
         res.status(200).json({message: "Usuario eliminado(soft delete)"})
     }catch(err){
         console.log(err)

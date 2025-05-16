@@ -51,6 +51,11 @@ const createItem = async (req, res) => {
 
 const generatePDF = async (deliverynote_id) => {
     try{
+        const deliverynote = await DeliverynoteModel.findById(deliverynote_id)
+        if(deliverynote==null){
+            res.status(404).send('ITEM_NOT_FOUND')
+            return
+        }
         return new Promise((resolve, reject) => {
             const doc = new PDFDocument()
             const chunks = []

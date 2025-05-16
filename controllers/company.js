@@ -8,10 +8,13 @@ const onBoarding = async (req, res) => {
         const data = matchedData(req)
         const user = req.user
         let company
+        if(user.nif==null){
+            res.status(400).send('USER_REQUIRE_FIELD_NIF')
+        }
         //Si no es autonomo lo anade como empleado de la empresa correspondiente al cif
         if(!user.autonomous){
             company = await CompanyModel.findOneAndUpdate({cif: data.cif}, {$addToSet: {employees: user._id}})
-            if(!company)
+            if(company==null)
                 console.log(`El empleado no ha podido ser anadido a la compania con cif: ${data.cif}`)
             else{
                 const updatedUser = await UserModel.findOneAndUpdate({email: user.email}, {company: company._id})
@@ -19,9 +22,9 @@ const onBoarding = async (req, res) => {
             }
         //Si es autonomo crea una empresa con sus datos personales
         }else{
-            company = await CompanyModel.findOneAndUpdate({cif: user.nif}, {name: data.name}, {upsert: true, new: true})
-            console.log(`Compania ${company.name} creada por ${user.name}`)  
             //Con upsert lo crea si no existe
+            company = await CompanyModel.findOneAndUpdate({cif: user.nif}, {name: data.name}, {upsert: true, new: true})
+            console.log(`Compania ${company.name} creada por ${user.name}`)
         }
         res.status(200).json(company)
     }catch(err){

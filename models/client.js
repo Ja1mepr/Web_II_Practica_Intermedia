@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongooseDelete = require('mongoose-delete')
 const ClientSchema = new mongoose.Schema(
     {
         name: {
@@ -32,5 +33,7 @@ const ClientSchema = new mongoose.Schema(
 );
 
 ClientSchema.index({createdBy: 1, email: 1}, {unique: true})
+ClientSchema.plugin(mongooseDelete, {overrideMethods: 'all'})
+
 
 module.exports = mongoose.model("client", ClientSchema)
