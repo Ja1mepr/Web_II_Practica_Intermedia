@@ -24,11 +24,7 @@ const ClientSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'company',
             required: false
-        },
-        projects: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'project'
-        }]
+        }
     }
 );
 

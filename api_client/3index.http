@@ -1,15 +1,43 @@
 POST http://localhost:3005/api/deliverynote/create
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODFiNzFjZjA4YThiNTM0ZWZjZGZiZjUiLCJpYXQiOjE3NDY2OTc4OTQsImV4cCI6MTc0NjcwNTA5NH0.XqTtpAKGXnE3G9g7JbRgo-4Bb2C6LWieuDQl8InS6Gs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDc1ODAyOTIsImV4cCI6MTc0NzU4NzQ5Mn0.7HXMNP6ZNxoAFtgGDvAQum3Y4aos902O8wlhJ34ZtUE
 Content-Type: application/json
 
 {
-    "project_name": "project_2",
-    "number": "05"
+    "project_name": "project_1A",
+    "number": "02",
+    "people": {
+        "name": "Juan Piedra",
+        "rol": "transportista",
+        "hours": "8" 
+    },
+    "materials": {
+        "name": "Placas Aluminio",
+        "units": "20"
+    }
 }
 
 ###
-GET http://localhost:3005/api/deliverynote/68124cec147ec0ad550e2eac
+GET http://localhost:3005/api/deliverynote/6827603cf389fe9d3fc9a0d9
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDc1ODAyOTIsImV4cCI6MTc0NzU4NzQ5Mn0.7HXMNP6ZNxoAFtgGDvAQum3Y4aos902O8wlhJ34ZtUE
 
 ###
 GET http://localhost:3005/api/deliverynote/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODExMGI1Nzg1YTA4MWJiODYyYmNkZDkiLCJpYXQiOjE3NDYwMjg0NTksImV4cCI6MTc0NjAzNTY1OX0.StqfoTIifNMzaZjtY4Xff4QUcItGQKWJNip55DdJz1I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDc1ODAyOTIsImV4cCI6MTc0NzU4NzQ5Mn0.7HXMNP6ZNxoAFtgGDvAQum3Y4aos902O8wlhJ34ZtUE
+
+###
+GET http://localhost:3005/api/deliverynote/pdf/682a083461e457673676b4b5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDc1ODAyOTIsImV4cCI6MTc0NzU4NzQ5Mn0.7HXMNP6ZNxoAFtgGDvAQum3Y4aos902O8wlhJ34ZtUE
+
+###
+PATCH http://localhost:3005/api/deliverynote/sign/6827603cf389fe9d3fc9a0d9
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDc1ODAyOTIsImV4cCI6MTc0NzU4NzQ5Mn0.7HXMNP6ZNxoAFtgGDvAQum3Y4aos902O8wlhJ34ZtUE
+Content-Type: application/json
+
+{
+    "signature": "abcdefghjk"
+}
+
+###
+DELETE http://localhost:3005/api/deliverynote/delete/682a083461e457673676b4b5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDc1ODAyOTIsImV4cCI6MTc0NzU4NzQ5Mn0.7HXMNP6ZNxoAFtgGDvAQum3Y4aos902O8wlhJ34ZtUE
+

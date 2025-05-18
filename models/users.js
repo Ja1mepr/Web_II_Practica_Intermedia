@@ -47,11 +47,7 @@ const UserSchema = new mongoose.Schema(
         },
         autonomous: {
             type: Boolean
-        },
-        clients: [{
-             type: mongoose.Schema.Types.ObjectId,
-             ref: 'client'
-        }]
+        }
     },
     {
         timestamps: true,

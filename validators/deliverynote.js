@@ -4,6 +4,8 @@ const validateResults = require('../utils/handleValidator')
 const validatorCreateItem = [
     check('project_name').exists().notEmpty(),
     check('number').exists().notEmpty(),
+    check('people').exists().notEmpty(),
+    check('materials').exists().notEmpty(),
     (req, res, next) => {return validateResults(req, res, next)}
 ]
 
