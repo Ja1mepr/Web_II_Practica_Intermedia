@@ -1,6 +1,10 @@
 PORT = 3005
-DB_URI = "mongodb+srv://jaimeplasencia:F8DPwao7xIkIdYZs@cluster0.s6rsa.mongodb.net/Practica_Final_3"
+DB_URI = "mongodb+srv://jaimeplasencia:F8DPwao7xIkIdYZs@cluster0.s6rsa.mongodb.net/Practica_Final"
 JWT_SECRET = "4f6c3a7c1e2d9f8a3b2c5e6d7a1b0f4e9c3d2a7b5f6e1d0c8a9b3f2e4d6c7a1"
 PUBLIC_URL = "http://localhost:3005/api/storage"
+
 CLIENT_ID = "814689834674-vtdrdmdevb2is1245t66jd6mss425vo0.apps.googleusercontent.com"
 SECRET_ID = "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"
+
+PINATA_API_KEY = "2bad6288f9b8643f7306"
+PINATA_API_SECRET = "9253ae4edd91d0c968baead14ad0f42c079a92c49b6ae28a2f564a50702868e0"
