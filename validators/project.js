@@ -10,6 +10,7 @@ const validatorCreateItem = [
 
 const validatorUpdateItem = [
     check('projectCode').exists().notEmpty(),
+    check('name').exists().notEmpty(),
     (req, res, next) => {return validateResults(req, res, next)}
 ]
 

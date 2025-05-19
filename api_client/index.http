@@ -11,13 +11,13 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:3005/api/users/validation
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODFiNzIzZjA4YThiNTM0ZWZjZGZiZjkiLCJpYXQiOjE3NDY2MjkxODMsImV4cCI6MTc0NjYzNjM4M30.VIYrdA_dBUjwaHUT29uaatcPwsfVua8D_DFBefeK2mA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDc2NzE1MDEsImV4cCI6MTc0NzY3ODcwMX0.0nP3kmlhEMI1adJe1GFkyRM9zzJ_P4vtfGN97nNUGhk
 Content-Type: application/json
 
 {
-    "email": "user_2@gmail.com",
+    "email": "user_A@gmail.com",
     "password": "user1234",
-    "code": 613110
+    "code": 649149
 }
 
 ###

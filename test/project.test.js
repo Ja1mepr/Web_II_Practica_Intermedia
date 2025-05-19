@@ -2,7 +2,7 @@ const request = require('supertest')
 const app = require('./app_test')
 require('./config')
 
-describe('Proyect API', () => {
+describe('Project API', () => {
     
     let token
     const invalid_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODExMGI1Nzg1YTA4MWJiODYyYmNkZDkiLCJpYXQiOjE3NDYwMjg0NTksImV4cCI6MTc0NjAzNTY1OX0.StqfoTIifNMzaZjtY4Xff4QUcItGQKWJNip55DdJz1I'
@@ -14,7 +14,8 @@ describe('Proyect API', () => {
         const user_res = await request(app).post('/api/users/register').send({
             name: 'TestUser',
             email: 'testuser@example.com',
-            password: 'testpassword123'
+            password: 'testpassword123',
+            autonomous: true
         })
         expect(user_res.body.token).toBeDefined()
         token = user_res.body.token
@@ -44,7 +45,8 @@ describe('Proyect API', () => {
         .set('Authorization', `Bearer ${token}`)
         .send({
             name: 'TestProject',
-            client_email: client.email,
+            projectCode: "01",
+            client_email: client.email
         })
         expect(res.statusCode).toBe(201)
         expect(res.body).toBeDefined()
@@ -114,7 +116,8 @@ describe('Proyect API', () => {
             .patch(`/api/project/update/${project._id}`)
             .set('Authorization', `Bearer ${token}`)
             .send({
-                name: 'testProjectUpdated'
+                projectCode: '01',
+                name: "project_1AU"
             })
         expect(res.statusCode).toBe(200)
     })
@@ -131,6 +134,7 @@ describe('Proyect API', () => {
             .patch(`/api/project/update/${project._id}`)
             .set('Authorization', `Bearer ${invalid_token}`)
             .send({
+                projectCode: '01',
                 name: 'testProjectUpdated'
             })
         expect(res.statusCode).toBe(401)
@@ -151,7 +155,7 @@ describe('Proyect API', () => {
             .delete(`/api/project/delete/`)
             .set('Authorization', `Bearer ${token}`)
             .send({
-                name: 'TestProjectUpdated'
+                projectCode: '01'
             })
         expect(res.statusCode).toBe(200)
     })
@@ -161,7 +165,7 @@ describe('Proyect API', () => {
             .delete(`/api/project/delete/`)
             .set('Authorization', `Bearer ${invalid_token}`)
             .send({
-                name: 'TestProjectUpdated'
+                projectCode: '01'
             })
         expect(res.statusCode).toBe(401)
     })
@@ -185,7 +189,7 @@ describe('Proyect API', () => {
             .patch(`/api/project/recover/`)
             .set('Authorization', `Bearer ${token}`)
             .send({
-                name: 'TestProjectUpdated'
+                projectCode: '01'
             })
         expect(res.statusCode).toBe(200)
     })
@@ -195,7 +199,7 @@ describe('Proyect API', () => {
             .patch(`/api/project/recover/`)
             .set('Authorization', `Bearer ${invalid_token}`)
             .send({
-                name: 'TestProjectUpdated'
+                projectCode: '01'
             })
         expect(res.statusCode).toBe(401)
     })
@@ -205,7 +209,7 @@ describe('Proyect API', () => {
             .patch(`/api/project/recover/`)
             .set('Authorization', `Bearer ${token}`)
             .send({
-                name: 'fakeProject'
+                projectCode: '00'
             })
         expect(res.statusCode).toBe(404)
     })

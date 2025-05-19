@@ -1,19 +1,19 @@
 POST http://localhost:3005/api/deliverynote/create
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDc1ODAyOTIsImV4cCI6MTc0NzU4NzQ5Mn0.7HXMNP6ZNxoAFtgGDvAQum3Y4aos902O8wlhJ34ZtUE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDc2NzE1MDEsImV4cCI6MTc0NzY3ODcwMX0.0nP3kmlhEMI1adJe1GFkyRM9zzJ_P4vtfGN97nNUGhk
 Content-Type: application/json
 
 {
     "project_name": "project_1A",
-    "number": "02",
-    "people": {
+    "number": "03",
+    "people": [{
         "name": "Juan Piedra",
         "rol": "transportista",
         "hours": "8" 
-    },
-    "materials": {
+    }],
+    "materials": [{
         "name": "Placas Aluminio",
         "units": "20"
-    }
+    }]
 }
 
 ###
@@ -22,7 +22,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2N
 
 ###
 GET http://localhost:3005/api/deliverynote/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDc1ODAyOTIsImV4cCI6MTc0NzU4NzQ5Mn0.7HXMNP6ZNxoAFtgGDvAQum3Y4aos902O8wlhJ34ZtUE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDc2NzE1MDEsImV4cCI6MTc0NzY3ODcwMX0.0nP3kmlhEMI1adJe1GFkyRM9zzJ_P4vtfGN97nNUGhk
 
 ###
 GET http://localhost:3005/api/deliverynote/pdf/682a083461e457673676b4b5
@@ -34,10 +34,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2N
 Content-Type: application/json
 
 {
-    "signature": "abcdefghjk"
+    "signature": "abcdefghij"
 }
 
 ###
-DELETE http://localhost:3005/api/deliverynote/delete/682a083461e457673676b4b5
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDc1ODAyOTIsImV4cCI6MTc0NzU4NzQ5Mn0.7HXMNP6ZNxoAFtgGDvAQum3Y4aos902O8wlhJ34ZtUE
-
+DELETE http://localhost:3005/api/deliverynote/delete/682b657fa6a9c5fc9cf49389
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODIyNDQ2NzRjOTU5NGZkOGFhZjAyZTkiLCJpYXQiOjE3NDc2NzE1MDEsImV4cCI6MTc0NzY3ODcwMX0.0nP3kmlhEMI1adJe1GFkyRM9zzJ_P4vtfGN97nNUGhk

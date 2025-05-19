@@ -12,14 +12,14 @@ describe('Users API', () => {
         const res = await request(app).post('/api/users/register').send({
             name: 'TestUser',
             email: 'testuser@example.com',
-            password: 'testpassword123'
+            password: 'testpassword123',
+            autonomous: true
         })
         expect(res.statusCode).toBe(201)
         expect(res.body.token).toBeDefined()
         expect(res.body.user).toBeDefined()
         token = res.body.token
-        code = res.body.user.code
-        console.log(`✅--------${code}`)
+        user = res.body.user
     })
 
     test('POST /users/register - crea usuario', async () => {
@@ -69,9 +69,9 @@ describe('Users API', () => {
             .put('/api/users/validation')
             .set('Authorization', `Bearer ${token}`)
             .send({
-                name: 'testUserUpdated',
                 email: 'testuser@example.com',
-                code: code
+                password: "testpassword123",
+                code: user.code
             })
         expect(res.statusCode).toBe(200)
     })

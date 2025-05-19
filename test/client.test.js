@@ -13,7 +13,8 @@ describe('Client API', () => {
         const res = await request(app).post('/api/users/register').send({
             name: 'TestUser',
             email: 'testuser@example.com',
-            password: 'testpassword123'
+            password: 'testpassword123',
+            autonomous: true
         })
         expect(res.body.token).toBeDefined()
         token = res.body.token

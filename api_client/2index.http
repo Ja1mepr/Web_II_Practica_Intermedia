@@ -73,7 +73,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODExMGI1N
 Content-Type: application/json
 
 {
-    "projectCode": "01"
+    "projectCode": "01",
+    "name": "project_1AU"
 }
 
 ###

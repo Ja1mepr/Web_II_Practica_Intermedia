@@ -68,7 +68,7 @@ const createItem = async (req, res) => {
             project: project._id
         }
         const deliverynote = await DeliverynoteModel.create(body)
-        res.status(200).json(deliverynote)
+        res.status(201).json(deliverynote)
     } catch (err) {
         console.log(err)
         res.status(403).json("ERROR_CREATING_DELIVERYNOTE")
@@ -178,7 +178,7 @@ const downloadItem = async (req, res) => {
         }
         const createdBy = deliverynote.project.client_associated.createdBy
         if (!(user._id.toString() === createdBy._id.toString() || user.role === "guest")){
-            res.status(404).json('USER_NOT_AUTHORIZED_TO_DOWNLOAD')
+            res.status(403).json('USER_NOT_AUTHORIZED_TO_DOWNLOAD')
             return
         }
         if(deliverynote.pinata_CID.deliverynotePDF===null)
@@ -238,8 +238,11 @@ const deleteItem = async (req, res) => {
     try {
         const deliverynote_id = req.params.id
         const deliverynote = await DeliverynoteModel.findById(deliverynote_id)
-        if (deliverynote.signature){
-            res.status(200).json('DELIVERYNOTE_SIGNED_UNABLE_TO_DELETE')
+        if(!deliverynote){
+            res.status(404).send('ITEM_NOT_FOUND')
+        }
+        if(deliverynote.signature){
+            res.status(403).json('DELIVERYNOTE_SIGNED_UNABLE_TO_DELETE')
             return
         }
         await DeliverynoteModel.findByIdAndDelete(deliverynote_id)
